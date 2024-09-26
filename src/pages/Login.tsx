@@ -1,9 +1,8 @@
 import GoogleIcon from "@mui/icons-material/Google";
-// import GoogleLogin from "../api/auth";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useState } from "react";
-import { Api } from "../utils";
 import { useNavigate } from "react-router-dom";
+import { Api } from "../utils";
 
 const storeTokenToLocalStorage = (access_token: string): void => {
   localStorage.setItem("access_token", access_token);
@@ -14,12 +13,10 @@ const Login = () => {
   const login = useGoogleLogin({
     onSuccess: async (codeResponse) => {
       setUserInfo(codeResponse);
-      const data = await Api.post("/auth/google", { body: codeResponse });
-      const { access_token } = data;
-
-      console.log(access_token);
-      if (access_token) {
-        storeTokenToLocalStorage(access_token);
+      const data = await Api.post("auth/google", { body: codeResponse });
+      console.log(data);
+      if (data.access_token) {
+        storeTokenToLocalStorage(data.access_token);
         navigate("/chat");
       }
     },
