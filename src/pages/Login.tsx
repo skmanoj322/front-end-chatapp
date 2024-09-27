@@ -35,7 +35,7 @@ const Login = () => {
           }}
         >
           <GoogleIcon />
-          Login With Google
+          Login With google
         </button>
       </div>
     </div>
